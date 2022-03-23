@@ -1,0 +1,1617 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Olatomiwa Akinlaja ACML Assignment 1 (Programming Exercise)}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{INTRODUCTION}\label{introduction}
+
+The aim of this assignment is to implement a simple linear regression
+(using gradient descent) model on a dataset
+
+\begin{quote}
+Two columns are extracted from the bank client data namely: 1. age
+(numeric) - X 1. balance: client's total balance? (numeric) - Y (Target)
+\end{quote}
+
+The linear regression model should be able to predict the client's
+balance based on their age
+
+    \section{IMPORTING THE DATASET}\label{importing-the-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{bank} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bank\PYZhy{}full.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{bank}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}    age           job  marital  education default  balance housing loan  \textbackslash{}
+        0   58    management  married   tertiary      no     2143     yes   no   
+        1   44    technician   single  secondary      no       29     yes   no   
+        2   33  entrepreneur  married  secondary      no        2     yes  yes   
+        3   47   blue-collar  married    unknown      no     1506     yes   no   
+        4   33       unknown   single    unknown      no        1      no   no   
+        
+           contact  day month  duration  campaign  pdays  previous poutcome   y  
+        0  unknown    5   may       261         1     -1         0  unknown  no  
+        1  unknown    5   may       151         1     -1         0  unknown  no  
+        2  unknown    5   may        76         1     -1         0  unknown  no  
+        3  unknown    5   may        92         1     -1         0  unknown  no  
+        4  unknown    5   may       198         1     -1         0  unknown  no  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{bank}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 45211
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} the bank dataset consists of over 45000 rows so lets focus on random 100 customers}
+        \PY{n}{bank} \PY{o}{=} \PY{n}{bank}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{3100}\PY{p}{:}\PY{l+m+mi}{3200}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Check/Remove null values}
+        \PY{n}{bank}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} False
+\end{Verbatim}
+            
+    \section{Exploring the data \& implementing the Linear Regression model
+with the data as
+is}\label{exploring-the-data-implementing-the-linear-regression-model-with-the-data-as-is}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Predict Balance based on Age}
+        \PY{n}{X} \PY{o}{=} \PY{n}{bank}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} Feature}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{bank}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} Target}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Overview of Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Overview of Balance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age vs Balance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} removing the outlier}
+         \PY{n}{bank} \PY{o}{=} \PY{n}{bank}\PY{p}{[}\PY{n}{bank}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{n}{bank}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{X} \PY{o}{=} \PY{n}{bank}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} Feature}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{bank}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} Target}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age vs Balance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Building the model}\label{building-the-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} gradient}
+         \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} Intercept}
+         
+         \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.005}  \PY{c+c1}{\PYZsh{} The learning Rate}
+         \PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{100}  \PY{c+c1}{\PYZsh{} The number of iterations to perform gradient descent}
+         
+         \PY{n}{n} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Number of elements in X}
+         
+         \PY{c+c1}{\PYZsh{} Performing Gradient Descent }
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{Y\PYZus{}pred} \PY{o}{=} \PY{n}{m}\PY{o}{*}\PY{n}{X} \PY{o}{+} \PY{n}{c}  \PY{c+c1}{\PYZsh{} The current predicted value of Y}
+             \PY{n}{D\PYZus{}m} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{n}\PY{p}{)} \PY{o}{*} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{X} \PY{o}{*} \PY{p}{(}\PY{n}{Y} \PY{o}{\PYZhy{}} \PY{n}{Y\PYZus{}pred}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Partial derivative wrt m}
+             \PY{n}{D\PYZus{}c} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{n}\PY{p}{)} \PY{o}{*} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{Y} \PY{o}{\PYZhy{}} \PY{n}{Y\PYZus{}pred}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Partial derivative wrt c}
+             \PY{n}{m} \PY{o}{=} \PY{n}{m} \PY{o}{\PYZhy{}} \PY{n}{alpha} \PY{o}{*} \PY{n}{D\PYZus{}m}  \PY{c+c1}{\PYZsh{} Update m}
+             \PY{n}{c} \PY{o}{=} \PY{n}{c} \PY{o}{\PYZhy{}} \PY{n}{alpha} \PY{o}{*} \PY{n}{D\PYZus{}c}  \PY{c+c1}{\PYZsh{} Update c}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Gradient: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Intercept: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Process Complete... after }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ epochs}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gradient(m): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Intercept(c): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration: 1 
+Gradient: 521.789898989899 
+Intercept: 11.029797979797982 
+
+Iteration: 2 
+Gradient: -9134.364625905524 
+Intercept: -204.2123642995613 
+
+Iteration: 3 
+Gradient: 169565.6002481972 
+Intercept: 3768.006891642485 
+
+Iteration: 4 
+Gradient: -3137509.779618302 
+Intercept: -69754.19799192189 
+
+Iteration: 5 
+Gradient: 58064228.211913906 
+Intercept: 1290858.8651336674 
+
+Iteration: 6 
+Gradient: -1074553655.267811 
+Intercept: -23889069.325772442 
+
+Iteration: 7 
+Gradient: 19886015641.805317 
+Intercept: 442098290.4532609 
+
+Iteration: 8 
+Gradient: -368016622715.0586 
+Intercept: -8181604814.652449 
+
+Iteration: 9 
+Gradient: 6810626987185.738 
+Intercept: 151411254483.9497 
+
+Iteration: 10 
+Gradient: -126039524010132.92 
+Intercept: -2802062494616.931 
+
+Iteration: 11 
+Gradient: 2332525572558898.0 
+Intercept: 51855816466449.39 
+
+Iteration: 12 
+Gradient: -4.316642409886063e+16 
+Intercept: -959659431784086.4 
+
+Iteration: 13 
+Gradient: 7.988509071043288e+17 
+Intercept: 1.7759747850231842e+16 
+
+Iteration: 14 
+Gradient: -1.4783776629722096e+19 
+Intercept: -3.286672680509649e+17 
+
+Iteration: 15 
+Gradient: 2.735930440759623e+20 
+Intercept: 6.082415921613136e+18 
+
+Iteration: 16 
+Gradient: -5.063195666543197e+21 
+Intercept: -1.1256302966487112e+20 
+
+Iteration: 17 
+Gradient: 9.370103119501844e+22 
+Intercept: 2.083125490039541e+21 
+
+Iteration: 18 
+Gradient: -1.7340596384662574e+24 
+Intercept: -3.85509506999946e+22 
+
+Iteration: 19 
+Gradient: 3.20910324188363e+25 
+Intercept: 7.134355596816227e+23 
+
+Iteration: 20 
+Gradient: -5.93886357113802e+26 
+Intercept: -1.3203054362503735e+25 
+
+Iteration: 21 
+Gradient: 1.0990640642613899e+28 
+Intercept: 2.443397194513561e+26 
+
+Iteration: 22 
+Gradient: -2.0339612164542376e+29 
+Intercept: -4.5218247885973213e+27 
+
+Iteration: 23 
+Gradient: 3.764110177526558e+30 
+Intercept: 8.368225790176473e+28 
+
+Iteration: 24 
+Gradient: -6.965976201482702e+31 
+Intercept: -1.548649188088007e+30 
+
+Iteration: 25 
+Gradient: 1.2891446358116332e+33 
+Intercept: 2.8659770516482044e+31 
+
+Iteration: 26 
+Gradient: -2.3857300742545976e+34 
+Intercept: -5.303863860036041e+32 
+
+Iteration: 27 
+Gradient: 4.415104270762761e+35 
+Intercept: 9.815490961317521e+33 
+
+Iteration: 28 
+Gradient: -8.170725570367821e+36 
+Intercept: -1.8164844602751782e+35 
+
+Iteration: 29 
+Gradient: 1.5120991997484328e+38 
+Intercept: 3.3616411114073376e+36 
+
+Iteration: 30 
+Gradient: -2.7983365371760024e+39 
+Intercept: -6.221154768476254e+37 
+
+Iteration: 31 
+Gradient: 5.178686277062358e+40 
+Intercept: 1.1513057274913005e+39 
+
+Iteration: 32 
+Gradient: -9.583833538227222e+41 
+Intercept: -2.1306412193293293e+40 
+
+Iteration: 33 
+Gradient: 1.7736132365320905e+43 
+Intercept: 3.943029116511953e+41 
+
+Iteration: 34 
+Gradient: -3.28230232740845e+44 
+Intercept: -7.297089004292793e+42 
+
+Iteration: 35 
+Gradient: 6.074328013911389e+45 
+Intercept: 1.3504213730908003e+44 
+
+Iteration: 36 
+Gradient: -1.1241335239743485e+47 
+Intercept: -2.499130658578532e+45 
+
+Iteration: 37 
+Gradient: 2.0803555172340454e+48 
+Intercept: 4.624966823764291e+46 
+
+Iteration: 38 
+Gradient: -3.8499688745025707e+49 
+Intercept: -8.559103561670856e+47 
+
+Iteration: 39 
+Gradient: 7.124868904304227e+50 
+Intercept: 1.5839736061021393e+49 
+
+Iteration: 40 
+Gradient: -1.3185498002261162e+52 
+Intercept: -2.9313494885887606e+50 
+
+Iteration: 41 
+Gradient: 2.440148161359202e+53 
+Intercept: 5.4248440700946263e+51 
+
+Iteration: 42 
+Gradient: -4.5158120295218264e+54 
+Intercept: -1.0039380599073094e+53 
+
+Iteration: 43 
+Gradient: 8.357098396277322e+55 
+Intercept: 1.8579181541578795e+54 
+
+Iteration: 44 
+Gradient: -1.5465899189000638e+57 
+Intercept: -3.438319559145036e+55 
+
+Iteration: 45 
+Gradient: 2.8621661057727876e+58 
+Intercept: 6.36305822425088e+56 
+
+Iteration: 46 
+Gradient: -5.2968112082747315e+59 
+Intercept: -1.1775668104355765e+58 
+
+Iteration: 47 
+Gradient: 9.802439110545472e+60 
+Intercept: 2.179240774121109e+59 
+
+Iteration: 48 
+Gradient: -1.8140690452746768e+62 
+Intercept: -4.0329689232964176e+60 
+
+Iteration: 49 
+Gradient: 3.357171071313755e+63 
+Intercept: 7.463534332425615e+61 
+
+Iteration: 50 
+Gradient: -6.212882377009751e+64 
+Intercept: -1.3812242492006354e+63 
+
+Iteration: 51 
+Gradient: 1.1497748136931585e+66 
+Intercept: 2.556135393243161e+64 
+
+Iteration: 52 
+Gradient: -2.1278080639270125e+67 
+Intercept: -4.7304615107733125e+65 
+
+Iteration: 53 
+Gradient: 3.9377859933893956e+68 
+Intercept: 8.754335221858506e+66 
+
+Iteration: 54 
+Gradient: -7.287385921978343e+69 
+Intercept: -1.620103767933288e+68 
+
+Iteration: 55 
+Gradient: 1.3486256913148768e+71 
+Intercept: 2.998213059419967e+69 
+
+Iteration: 56 
+Gradient: -2.495807515544303e+72 
+Intercept: -5.548583817654936e+70 
+
+Iteration: 57 
+Gradient: 4.618816914702445e+73 
+Intercept: 1.0268377120436608e+72 
+
+Iteration: 58 
+Gradient: -8.547722353856626e+74 
+Intercept: -1.9002969433751722e+73 
+
+Iteration: 59 
+Gradient: 1.5818673653429972e+76 
+Intercept: 3.516747028908764e+74 
+
+Iteration: 60 
+Gradient: -2.927451615702262e+77 
+Intercept: -6.5081984731146015e+75 
+
+Iteration: 61 
+Gradient: 5.417630548576083e+78 
+Intercept: 1.2044269041038828e+77 
+
+Iteration: 62 
+Gradient: -1.0026031037860172e+80 
+Intercept: -2.2289488762856323e+78 
+
+Iteration: 63 
+Gradient: 1.8554476439622787e+81 
+Intercept: 4.124960241394994e+79 
+
+Iteration: 64 
+Gradient: -3.433747558216152e+82 
+Intercept: -7.63377624947779e+80 
+
+Iteration: 65 
+Gradient: 6.3545971409771e+83 
+Intercept: 1.4127297335448678e+82 
+
+Iteration: 66 
+Gradient: -1.1760009767605734e+85 
+Intercept: -2.614440395968224e+83 
+
+Iteration: 67 
+Gradient: 2.176342994937949e+86 
+Intercept: 4.838362513202805e+84 
+
+Iteration: 68 
+Gradient: -4.027606205449435e+87 
+Intercept: -8.954020082181548e+85 
+
+Iteration: 69 
+Gradient: 7.453609924495054e+88 
+Intercept: 1.657058052457466e+87 
+
+Iteration: 70 
+Gradient: -1.3793876082364342e+90 
+Intercept: -3.0666017766459305e+88 
+
+Iteration: 71 
+Gradient: 2.5527364498956257e+91 
+Intercept: 5.675146047286336e+89 
+
+Iteration: 72 
+Gradient: -4.7241713233578403e+92 
+Intercept: -1.0502597012532918e+91 
+
+Iteration: 73 
+Gradient: 8.742694410678035e+93 
+Intercept: 1.9436423853868828e+92 
+
+Iteration: 74 
+Gradient: -1.6179494841895935e+95 
+Intercept: -3.5969634155860375e+93 
+
+Iteration: 75 
+Gradient: 2.9942262767324124e+96 
+Intercept: 6.6566493457534944e+94 
+
+Iteration: 76 
+Gradient: -5.5412057569680364e+97 
+Intercept: -1.2318996718264127e+96 
+
+Iteration: 77 
+Gradient: 1.0254723058059561e+99 
+Intercept: 2.279790811595231e+97 
+
+Iteration: 78 
+Gradient: -1.897770081272674e+100 
+Intercept: -4.219049865423137e+98 
+
+Iteration: 79 
+Gradient: 3.5120707414356927e+101 
+Intercept: 7.807901354980727e+99 
+
+Iteration: 80 
+Gradient: -6.499544394006281e+102 
+Intercept: -1.4449538524948384e+101 
+
+Iteration: 81 
+Gradient: 1.202825354035711e+104 
+Intercept: 2.674075325641491e+102 
+
+Iteration: 82 
+Gradient: -2.22598499926445e+105 
+Intercept: -4.948724718687992e+103 
+
+Iteration: 83 
+Gradient: 4.119475200888759e+106 
+Intercept: 9.158259719358732e+104 
+
+Iteration: 84 
+Gradient: -7.623625467532367e+107 
+Intercept: -1.6948552577696285e+106 
+
+Iteration: 85 
+Gradient: 1.410851199120438e+109 
+Intercept: 3.1365504285900416e+107 
+
+Iteration: 86 
+Gradient: -2.6109639233154365e+110 
+Intercept: -5.804595139312819e+108 
+
+Iteration: 87 
+Gradient: 4.831928847708896e+111 
+Intercept: 1.0742159419537868e+110 
+
+Iteration: 88 
+Gradient: -8.942113746127297e+112 
+Intercept: -1.9879765293747444e+111 
+
+Iteration: 89 
+Gradient: 1.6548546298771186e+114 
+Intercept: 3.6790095240598034e+112 
+
+Iteration: 90 
+Gradient: -3.0625240561402624e+115 
+Intercept: -6.808486356918804e+113 
+
+Iteration: 91 
+Gradient: 5.6675996943213334e+116 
+Intercept: 1.2599990885915405e+115 
+
+Iteration: 92 
+Gradient: -1.0488631503373286e+118 
+Intercept: -2.3317924425862914e+116 
+
+Iteration: 93 
+Gradient: 1.9410578860003225e+119 
+Intercept: 4.315285657373333e+117 
+
+Iteration: 94 
+Gradient: -3.5921804628109e+120 
+Intercept: -7.985998223786084e+118 
+
+Iteration: 95 
+Gradient: 6.647797868609357e+121 
+Intercept: 1.477912997980636e+120 
+
+Iteration: 96 
+Gradient: -1.2302615906803773e+123 
+Intercept: -2.735070517664843e+121 
+
+Iteration: 97 
+Gradient: 2.2767593290558745e+124 
+Intercept: 5.061604266841583e+122 
+
+Iteration: 98 
+Gradient: -4.2134397120991405e+125 
+Intercept: -9.36715802705618e+123 
+
+Iteration: 99 
+Gradient: 7.797519035468681e+126 
+Intercept: 1.7335146107460257e+125 
+
+Iteration: 100 
+Gradient: -1.443032469027667e+128 
+Intercept: -3.208094597091305e+126 
+
+
+Process Complete{\ldots} after 100 epochs
+Gradient(m): -1.443032469027667e+128 Intercept(c): -3.208094597091305e+126
+
+    \end{Verbatim}
+
+    \section{Making predictions}\label{making-predictions}
+
+\begin{itemize}
+\tightlist
+\item
+  Using the m \& c generated after training the model and hopefully
+  reaching global/local minima
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{Y\PYZus{}pred} \PY{o}{=} \PY{n}{m}\PY{o}{*}\PY{n}{X} \PY{o}{+} \PY{n}{c}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)} 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y\PYZus{}pred}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} regression line}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Regression Line vs Age vs Balance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\item
+  As seen above the model performs poorly and fails to produce a line of
+  best fit due to each column not being represented on the same scale
+\item
+  Lets see how the model performs after each column is standardized.
+\end{itemize}
+
+\begin{quote}
+Making use of a Standardardazion / Normalising technique to normalise
+columns with high variance: scaling between 0 and 1
+\end{quote}
+
+    \section{Performing Feature Standardization before implementing the
+model}\label{performing-feature-standardization-before-implementing-the-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} for every value within the column value v: apply the formula}
+         \PY{c+c1}{\PYZsh{} taking the minimum and maximum value within the balance column and using the standardized formula}
+         
+         \PY{n}{new\PYZus{}X} \PY{o}{=} \PY{p}{(}\PY{n}{X} \PY{o}{\PYZhy{}} \PY{n}{X}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{X}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{new\PYZus{}Y} \PY{o}{=} \PY{p}{(}\PY{n}{Y} \PY{o}{\PYZhy{}} \PY{n}{Y}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{Y}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{Y}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age vs Balance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Fitting the model on the Standardized
+variables}\label{fitting-the-model-on-the-standardized-variables}
+
+\begin{itemize}
+\tightlist
+\item
+  alpha = 0.0001 \& iterations = 100
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{new\PYZus{}m} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} gradient}
+         \PY{n}{new\PYZus{}c} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} Intercept}
+         
+         \PY{n}{new\PYZus{}alpha} \PY{o}{=} \PY{l+m+mf}{0.0001}  \PY{c+c1}{\PYZsh{} The learning Rate}
+         \PY{n}{new\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{100}  \PY{c+c1}{\PYZsh{} The number of iterations to perform gradient descent}
+         
+         \PY{n}{new\PYZus{}n} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Number of elements in X}
+         
+         \PY{c+c1}{\PYZsh{} Performing Gradient Descent }
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{new\PYZus{}epochs}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{new\PYZus{}Y\PYZus{}pred} \PY{o}{=} \PY{n}{new\PYZus{}m}\PY{o}{*}\PY{n}{new\PYZus{}X} \PY{o}{+} \PY{n}{new\PYZus{}c}  \PY{c+c1}{\PYZsh{} The current predicted value of Y}
+             \PY{n}{new\PYZus{}D\PYZus{}m} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{new\PYZus{}n}\PY{p}{)} \PY{o}{*} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{new\PYZus{}X} \PY{o}{*} \PY{p}{(}\PY{n}{new\PYZus{}Y} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}Y\PYZus{}pred}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Partial derivative wrt m}
+             \PY{n}{new\PYZus{}D\PYZus{}c} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{new\PYZus{}n}\PY{p}{)} \PY{o}{*} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{new\PYZus{}Y} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}Y\PYZus{}pred}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Partial derivative wrt c}
+             \PY{n}{new\PYZus{}m} \PY{o}{=} \PY{n}{new\PYZus{}m} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}alpha} \PY{o}{*} \PY{n}{new\PYZus{}D\PYZus{}m}  \PY{c+c1}{\PYZsh{} Update m}
+             \PY{n}{new\PYZus{}c} \PY{o}{=} \PY{n}{new\PYZus{}c} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}alpha} \PY{o}{*} \PY{n}{new\PYZus{}D\PYZus{}c}  \PY{c+c1}{\PYZsh{} Update c}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Gradient: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}m}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Intercept: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}c}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Process Complete... after }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ epochs}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}epochs}\PY{p}{)}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gradient(m): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}m}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Intercept(c): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}c}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration: 1 
+Gradient: 4.119467050954942e-05 
+Intercept: 6.363957918283176e-05 
+
+Iteration: 2 
+Gradient: 8.237838637196234e-05 
+Intercept: 0.00012726149903912782 
+
+Iteration: 3 
+Gradient: 0.0001235511505884527 
+Intercept: 0.00019086576441213336 
+
+Iteration: 4 
+Gradient: 0.00016471296615941153 
+Intercept: 0.0002544523801437657 
+
+Iteration: 5 
+Gradient: 0.0002058638360844073 
+Intercept: 0.0003180213510746146 
+
+Iteration: 6 
+Gradient: 0.0002470037633621861 
+Intercept: 0.00038157268204394264 
+
+Iteration: 7 
+Gradient: 0.0002881327509906718 
+Intercept: 0.0004451063778896855 
+
+Iteration: 8 
+Gradient: 0.0003292508019669663 
+Intercept: 0.0005086224434484525 
+
+Iteration: 9 
+Gradient: 0.0003703579192873498 
+Intercept: 0.0005721208835555267 
+
+Iteration: 10 
+Gradient: 0.0004114541059472809 
+Intercept: 0.0006356017030448656 
+
+Iteration: 11 
+Gradient: 0.0004525393649413971 
+Intercept: 0.000699064906749101 
+
+Iteration: 12 
+Gradient: 0.0004936136992635148 
+Intercept: 0.0007625104994995404 
+
+Iteration: 13 
+Gradient: 0.0005346771119066294 
+Intercept: 0.0008259384861261657 
+
+Iteration: 14 
+Gradient: 0.000575729605862916 
+Intercept: 0.0008893488714576352 
+
+Iteration: 15 
+Gradient: 0.0006167711841237291 
+Intercept: 0.000952741660321283 
+
+Iteration: 16 
+Gradient: 0.0006578018496796031 
+Intercept: 0.0010161168575431197 
+
+Iteration: 17 
+Gradient: 0.0006988216055202526 
+Intercept: 0.0010794744679478326 
+
+Iteration: 18 
+Gradient: 0.0007398304546345723 
+Intercept: 0.0011428144963587863 
+
+Iteration: 19 
+Gradient: 0.0007808284000106376 
+Intercept: 0.001206136947598023 
+
+Iteration: 20 
+Gradient: 0.0008218154446357044 
+Intercept: 0.0012694418264862627 
+
+Iteration: 21 
+Gradient: 0.0008627915914962099 
+Intercept: 0.0013327291378429035 
+
+Iteration: 22 
+Gradient: 0.0009037568435777722 
+Intercept: 0.0013959988864860222 
+
+Iteration: 23 
+Gradient: 0.0009447112038651911 
+Intercept: 0.0014592510772323747 
+
+Iteration: 24 
+Gradient: 0.0009856546753424479 
+Intercept: 0.0015224857148973963 
+
+Iteration: 25 
+Gradient: 0.0010265872609927056 
+Intercept: 0.0015857028042952017 
+
+Iteration: 26 
+Gradient: 0.0010675089637983096 
+Intercept: 0.0016489023502385858 
+
+Iteration: 27 
+Gradient: 0.0011084197867407878 
+Intercept: 0.001712084357539024 
+
+Iteration: 28 
+Gradient: 0.00114931973280085 
+Intercept: 0.0017752488310066724 
+
+Iteration: 29 
+Gradient: 0.0011902088049583891 
+Intercept: 0.0018383957754503682 
+
+Iteration: 30 
+Gradient: 0.001231087006192481 
+Intercept: 0.0019015251956776304 
+
+Iteration: 31 
+Gradient: 0.0012719543394813851 
+Intercept: 0.0019646370964946595 
+
+Iteration: 32 
+Gradient: 0.0013128108078025436 
+Intercept: 0.0020277314827063385 
+
+Iteration: 33 
+Gradient: 0.001353656414132583 
+Intercept: 0.002090808359116233 
+
+Iteration: 34 
+Gradient: 0.0013944911614473133 
+Intercept: 0.002153867730526591 
+
+Iteration: 35 
+Gradient: 0.0014353150527217286 
+Intercept: 0.0022169096017383445 
+
+Iteration: 36 
+Gradient: 0.0014761280909300078 
+Intercept: 0.0022799339775511087 
+
+Iteration: 37 
+Gradient: 0.0015169302790455138 
+Intercept: 0.0023429408627631833 
+
+Iteration: 38 
+Gradient: 0.0015577216200407945 
+Intercept: 0.0024059302621715524 
+
+Iteration: 39 
+Gradient: 0.0015985021168875829 
+Intercept: 0.0024689021805718845 
+
+Iteration: 40 
+Gradient: 0.001639271772556797 
+Intercept: 0.002531856622758533 
+
+Iteration: 41 
+Gradient: 0.0016800305900185406 
+Intercept: 0.0025947935935245374 
+
+Iteration: 42 
+Gradient: 0.0017207785722421027 
+Intercept: 0.002657713097661623 
+
+Iteration: 43 
+Gradient: 0.0017615157221959588 
+Intercept: 0.002720615139960201 
+
+Iteration: 44 
+Gradient: 0.00180224204284777 
+Intercept: 0.0027834997252093687 
+
+Iteration: 45 
+Gradient: 0.001842957537164384 
+Intercept: 0.0028463668581969115 
+
+Iteration: 46 
+Gradient: 0.001883662208111835 
+Intercept: 0.002909216543709301 
+
+Iteration: 47 
+Gradient: 0.001924356058655344 
+Intercept: 0.0029720487865316975 
+
+Iteration: 48 
+Gradient: 0.001965039091759319 
+Intercept: 0.003034863591447948 
+
+Iteration: 49 
+Gradient: 0.002005711310387355 
+Intercept: 0.0030976609632405888 
+
+Iteration: 50 
+Gradient: 0.0020463727175022354 
+Intercept: 0.003160440906690845 
+
+Iteration: 51 
+Gradient: 0.0020870233160659303 
+Intercept: 0.0032232034265786296 
+
+Iteration: 52 
+Gradient: 0.002127663109039598 
+Intercept: 0.003285948527682547 
+
+Iteration: 53 
+Gradient: 0.0021682920993835843 
+Intercept: 0.0033486762147798893 
+
+Iteration: 54 
+Gradient: 0.002208910290057425 
+Intercept: 0.0034113864926466403 
+
+Iteration: 55 
+Gradient: 0.002249517684019843 
+Intercept: 0.0034740793660574735 
+
+Iteration: 56 
+Gradient: 0.00229011428422875 
+Intercept: 0.0035367548397857535 
+
+Iteration: 57 
+Gradient: 0.002330700093641248 
+Intercept: 0.0035994129186035367 
+
+Iteration: 58 
+Gradient: 0.002371275115213627 
+Intercept: 0.0036620536072815703 
+
+Iteration: 59 
+Gradient: 0.0024118393519013672 
+Intercept: 0.0037246769105892933 
+
+Iteration: 60 
+Gradient: 0.0024523928066591378 
+Intercept: 0.003787282833294838 
+
+Iteration: 61 
+Gradient: 0.0024929354824407986 
+Intercept: 0.0038498713801650283 
+
+Iteration: 62 
+Gradient: 0.002533467382199399 
+Intercept: 0.003912442555965382 
+
+Iteration: 63 
+Gradient: 0.002573988508887179 
+Intercept: 0.00397499636546011 
+
+Iteration: 64 
+Gradient: 0.0026144988654555694 
+Intercept: 0.004037532813412116 
+
+Iteration: 65 
+Gradient: 0.0026549984548551913 
+Intercept: 0.004100051904583 
+
+Iteration: 66 
+Gradient: 0.0026954872800358572 
+Intercept: 0.004162553643733055 
+
+Iteration: 67 
+Gradient: 0.0027359653439465704 
+Intercept: 0.004225038035621268 
+
+Iteration: 68 
+Gradient: 0.002776432649535526 
+Intercept: 0.004287505085005322 
+
+Iteration: 69 
+Gradient: 0.0028168891997501114 
+Intercept: 0.004349954796641597 
+
+Iteration: 70 
+Gradient: 0.002857334997536904 
+Intercept: 0.004412387175285167 
+
+Iteration: 71 
+Gradient: 0.002897770045841676 
+Intercept: 0.004474802225689802 
+
+Iteration: 72 
+Gradient: 0.0029381943476093895 
+Intercept: 0.00453719995260797 
+
+Iteration: 73 
+Gradient: 0.0029786079057842006 
+Intercept: 0.004599580360790836 
+
+Iteration: 74 
+Gradient: 0.003019010723309458 
+Intercept: 0.0046619434549882615 
+
+Iteration: 75 
+Gradient: 0.0030594028031277025 
+Intercept: 0.004724289239948805 
+
+Iteration: 76 
+Gradient: 0.0030997841481806695 
+Intercept: 0.004786617720419725 
+
+Iteration: 77 
+Gradient: 0.003140154761409287 
+Intercept: 0.004848928901146975 
+
+Iteration: 78 
+Gradient: 0.0031805146457536764 
+Intercept: 0.004911222786875212 
+
+Iteration: 79 
+Gradient: 0.0032208638041531542 
+Intercept: 0.00497349938234779 
+
+Iteration: 80 
+Gradient: 0.00326120223954623 
+Intercept: 0.00503575869230676 
+
+Iteration: 81 
+Gradient: 0.003301529954870608 
+Intercept: 0.005098000721492877 
+
+Iteration: 82 
+Gradient: 0.003341846953063187 
+Intercept: 0.005160225474645593 
+
+Iteration: 83 
+Gradient: 0.00338215323706006 
+Intercept: 0.005222432956503062 
+
+Iteration: 84 
+Gradient: 0.0034224488097965165 
+Intercept: 0.005284623171802138 
+
+Iteration: 85 
+Gradient: 0.00346273367420704 
+Intercept: 0.005346796125278377 
+
+Iteration: 86 
+Gradient: 0.0035030078332253093 
+Intercept: 0.005408951821666037 
+
+Iteration: 87 
+Gradient: 0.0035432712897841994 
+Intercept: 0.005471090265698077 
+
+Iteration: 88 
+Gradient: 0.0035835240468157815 
+Intercept: 0.005533211462106159 
+
+Iteration: 89 
+Gradient: 0.003623766107251322 
+Intercept: 0.005595315415620646 
+
+Iteration: 90 
+Gradient: 0.0036639974740212845 
+Intercept: 0.005657402130970607 
+
+Iteration: 91 
+Gradient: 0.0037042181500553284 
+Intercept: 0.0057194716128838126 
+
+Iteration: 92 
+Gradient: 0.0037444281382823107 
+Intercept: 0.005781523866086736 
+
+Iteration: 93 
+Gradient: 0.0037846274416302845 
+Intercept: 0.0058435588953045575 
+
+Iteration: 94 
+Gradient: 0.0038248160630265002 
+Intercept: 0.0059055767052611586 
+
+Iteration: 95 
+Gradient: 0.0038649940053974065 
+Intercept: 0.005967577300679128 
+
+Iteration: 96 
+Gradient: 0.0039051612716686493 
+Intercept: 0.0060295606862797585 
+
+Iteration: 97 
+Gradient: 0.0039453178647650715 
+Intercept: 0.006091526866783049 
+
+Iteration: 98 
+Gradient: 0.003985463787610715 
+Intercept: 0.006153475846907703 
+
+Iteration: 99 
+Gradient: 0.004025599043128821 
+Intercept: 0.006215407631371132 
+
+Iteration: 100 
+Gradient: 0.004065723634241827 
+Intercept: 0.006277322224889452 
+
+
+Process Complete{\ldots} after 100 epochs
+Gradient(m): 0.004065723634241827 Intercept(c): 0.006277322224889452
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{new\PYZus{}Y\PYZus{}pred} \PY{o}{=} \PY{n}{new\PYZus{}m}\PY{o}{*}\PY{n}{new\PYZus{}X} \PY{o}{+} \PY{n}{new\PYZus{}c}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{new\PYZus{}Y}\PY{p}{)} 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{new\PYZus{}Y\PYZus{}pred}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} regression line}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Regression Line vs Age vs Balance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+As expected the linear regression model performs well once the data has
+been standardized, unlike the unstandardized data. The model was unable
+to properly converge which resulted in almost random gradient values as
+it attempted to find the global/local minima.\\
+\end{quote}
+
+\begin{quote}
+A learning rate of 0.0001 was used, with 100 iterations.
+\end{quote}
+
+    \section{Using a higher learning rate with a higher
+iteration}\label{using-a-higher-learning-rate-with-a-higher-iteration}
+
+\begin{itemize}
+\tightlist
+\item
+  alpha = 0.005 \& epochs = 1000
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{new\PYZus{}m} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} gradient}
+         \PY{n}{new\PYZus{}c} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} Intercept}
+         
+         \PY{n}{new\PYZus{}alpha} \PY{o}{=} \PY{l+m+mf}{0.005}  \PY{c+c1}{\PYZsh{} The learning Rate}
+         \PY{n}{new\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{1000}  \PY{c+c1}{\PYZsh{} The number of iterations to perform gradient descent}
+         
+         \PY{n}{new\PYZus{}n} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Number of elements in X}
+         
+         \PY{c+c1}{\PYZsh{} Performing Gradient Descent }
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{new\PYZus{}epochs}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{new\PYZus{}Y\PYZus{}pred} \PY{o}{=} \PY{n}{new\PYZus{}m}\PY{o}{*}\PY{n}{new\PYZus{}X} \PY{o}{+} \PY{n}{new\PYZus{}c}  \PY{c+c1}{\PYZsh{} The current predicted value of Y}
+             \PY{n}{new\PYZus{}D\PYZus{}m} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{new\PYZus{}n}\PY{p}{)} \PY{o}{*} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{new\PYZus{}X} \PY{o}{*} \PY{p}{(}\PY{n}{new\PYZus{}Y} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}Y\PYZus{}pred}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Partial derivative wrt m}
+             \PY{n}{new\PYZus{}D\PYZus{}c} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{new\PYZus{}n}\PY{p}{)} \PY{o}{*} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{new\PYZus{}Y} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}Y\PYZus{}pred}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Partial derivative wrt c}
+             \PY{n}{new\PYZus{}m} \PY{o}{=} \PY{n}{new\PYZus{}m} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}alpha} \PY{o}{*} \PY{n}{new\PYZus{}D\PYZus{}m}  \PY{c+c1}{\PYZsh{} Update m}
+             \PY{n}{new\PYZus{}c} \PY{o}{=} \PY{n}{new\PYZus{}c} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}alpha} \PY{o}{*} \PY{n}{new\PYZus{}D\PYZus{}c}  \PY{c+c1}{\PYZsh{} Update c}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} commented out on purpose}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}Iteration: \PYZob{}\PYZcb{}\PYZdq{}.format(i+ 1), \PYZdq{}\PYZbs{}nGradient: \PYZob{}\PYZcb{}\PYZdq{}.format(new\PYZus{}m), }
+             \PY{c+c1}{\PYZsh{}\PYZdq{}\PYZbs{}nIntercept: \PYZob{}\PYZcb{}\PYZdq{}.format(new\PYZus{}c), \PYZdq{}\PYZbs{}n\PYZdq{})}
+             
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Process Complete... after }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ epochs}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}epochs}\PY{p}{)}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gradient(m): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}m}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Intercept(c): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}c}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Process Complete{\ldots} after 1000 epochs
+Gradient(m): 0.19951142488472115 Intercept(c): 0.20158307777849563
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{new\PYZus{}Y\PYZus{}pred} \PY{o}{=} \PY{n}{new\PYZus{}m}\PY{o}{*}\PY{n}{new\PYZus{}X} \PY{o}{+} \PY{n}{new\PYZus{}c}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{new\PYZus{}Y}\PY{p}{)} 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{new\PYZus{}Y\PYZus{}pred}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} regression line}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Regression Line vs Age vs Balance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Using a lower learning rate with a higher
+iteration}\label{using-a-lower-learning-rate-with-a-higher-iteration}
+
+\begin{itemize}
+\tightlist
+\item
+  alpha = 0.001 \& epochs = 2000
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{new\PYZus{}m} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} gradient}
+         \PY{n}{new\PYZus{}c} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} Intercept}
+         
+         \PY{n}{m\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{c\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]} 
+         
+         \PY{n}{new\PYZus{}alpha} \PY{o}{=} \PY{l+m+mf}{0.001}  \PY{c+c1}{\PYZsh{} The learning Rate}
+         \PY{n}{new\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{2000}  \PY{c+c1}{\PYZsh{} The number of iterations to perform gradient descent}
+         
+         \PY{n}{new\PYZus{}n} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Number of elements in X}
+         
+         \PY{c+c1}{\PYZsh{} Performing Gradient Descent }
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{new\PYZus{}epochs}\PY{p}{)}\PY{p}{:} 
+             \PY{c+c1}{\PYZsh{} append current m and c into a list}
+             \PY{n}{m\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}m}\PY{p}{)}
+             \PY{n}{c\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}c}\PY{p}{)}
+             
+             \PY{n}{new\PYZus{}Y\PYZus{}pred} \PY{o}{=} \PY{n}{new\PYZus{}m}\PY{o}{*}\PY{n}{new\PYZus{}X} \PY{o}{+} \PY{n}{new\PYZus{}c}  \PY{c+c1}{\PYZsh{} The current predicted value of Y}
+             \PY{n}{new\PYZus{}D\PYZus{}m} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{new\PYZus{}n}\PY{p}{)} \PY{o}{*} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{new\PYZus{}X} \PY{o}{*} \PY{p}{(}\PY{n}{new\PYZus{}Y} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}Y\PYZus{}pred}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Partial derivative wrt m}
+             \PY{n}{new\PYZus{}D\PYZus{}c} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{new\PYZus{}n}\PY{p}{)} \PY{o}{*} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{new\PYZus{}Y} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}Y\PYZus{}pred}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Partial derivative wrt c}
+             \PY{n}{new\PYZus{}m} \PY{o}{=} \PY{n}{new\PYZus{}m} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}alpha} \PY{o}{*} \PY{n}{new\PYZus{}D\PYZus{}m}  \PY{c+c1}{\PYZsh{} Update m}
+             \PY{n}{new\PYZus{}c} \PY{o}{=} \PY{n}{new\PYZus{}c} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}alpha} \PY{o}{*} \PY{n}{new\PYZus{}D\PYZus{}c}  \PY{c+c1}{\PYZsh{} Update c}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Commented out to reduce number of pages}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}Iteration: \PYZob{}\PYZcb{}\PYZdq{}.format(i+ 1), \PYZdq{}\PYZbs{}nGradient: \PYZob{}\PYZcb{}\PYZdq{}.format(new\PYZus{}m), }
+                   \PY{c+c1}{\PYZsh{}\PYZdq{}\PYZbs{}nIntercept: \PYZob{}\PYZcb{}\PYZdq{}.format(new\PYZus{}c), \PYZdq{}\PYZbs{}n\PYZdq{})}
+             
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Process Complete... after }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ epochs}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}epochs}\PY{p}{)}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gradient(m): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}m}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Intercept(c): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{new\PYZus{}c}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Process Complete{\ldots} after 2000 epochs
+Gradient(m): 0.16878962845968176 Intercept(c): 0.21927932474659825
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{new\PYZus{}Y\PYZus{}pred} \PY{o}{=} \PY{n}{new\PYZus{}m}\PY{o}{*}\PY{n}{new\PYZus{}X} \PY{o}{+} \PY{n}{new\PYZus{}c}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{new\PYZus{}Y}\PY{p}{)} 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{new\PYZus{}Y\PYZus{}pred}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} regression line}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.9}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ c: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{new\PYZus{}m}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{new\PYZus{}c}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{transform}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{transAxes}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Regression Line vs Age vs Balance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{The algorithm in action as it finds the line of best
+fit}\label{the-algorithm-in-action-as-it-finds-the-line-of-best-fit}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{y\PYZus{}pred\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} list to store predictions}
+         
+         \PY{c+c1}{\PYZsh{} Store every prediction for each cobination of m and c}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{m\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{m\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{new\PYZus{}X} \PY{o}{+} \PY{n}{c\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize} \PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} 5 rows, 5 columns}
+         
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)} \PY{c+c1}{\PYZsh{}row=0, col=0}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{112}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{224}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)} \PY{c+c1}{\PYZsh{}row=1, col=0}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{420}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{560}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)} 
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{888}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)} \PY{c+c1}{\PYZsh{}row=2, col=0}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1200}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1600}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,}\PY{n}{new\PYZus{}Y}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}X}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1999}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{p}{[}\PY{n}{axi}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}off}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{axi} \PY{o+ow}{in} \PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{New Prediction}\label{new-prediction}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{value} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter Age: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Standardize value first}
+         \PY{n}{my\PYZus{}x} \PY{o}{=} \PY{p}{(}\PY{n}{value} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}X}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{new\PYZus{}X}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}X}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{my\PYZus{}pred} \PY{o}{=} \PY{n}{new\PYZus{}m}\PY{o}{*}\PY{n}{my\PYZus{}x} \PY{o}{+} \PY{n}{new\PYZus{}c}
+         \PY{c+c1}{\PYZsh{} value had been standardized so to get original value}
+         \PY{n}{pred\PYZus{}balance} \PY{o}{=} \PY{n}{my\PYZus{}pred} \PY{o}{*} \PY{l+m+mi}{100}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted Balance: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pred\PYZus{}balance}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Enter Age: 60
+Predicted Balance: 1034.6657032327503
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
